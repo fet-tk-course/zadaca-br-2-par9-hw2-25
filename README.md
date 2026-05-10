@@ -74,12 +74,12 @@ curl -X POST "http://localhost:8000/resursi_a" \
 ## Korištenje AI alata
 
 ### Alat: [GitHub Copilot / ChatGPT / ...]
-**Model:** [GPT-4, Copilot model, ...]
+**Model:** ChatGpt i githubcopilot
 
 **Primjer 1:**
-- **Prompt:** [Npr. "Kreiraj SQLModel klasu za entitet Knjiga sa poljima naslov, autor, godina, isbn"]
-- **Kako je pomoglo:** [Opis]
-- **Prilagodbe:** [Da li ste morali prilagoditi generisani kod]
+- **Prompt:** Kreiraj kalsu course sa id title category duration itd.
+- **Kako je pomoglo:** Pomoglo mi je skontat tačko kakvu klasu hoću i kakvo je hoču postavit
+- **Prilagodbe:** UU nekim slučajevima sam moro mjenjati kod koji je AI generiso
 
 **Primjer 2:**
 - **Prompt:** [Npr. "Implementiraj PATCH endpoint sa exclude_unset=True"]
