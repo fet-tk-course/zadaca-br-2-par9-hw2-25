@@ -1,5 +1,6 @@
 from sqlmodel import SQLModel, create_engine, Session
 from typing import Generator
+from models_a import Course
 
 
 # Kreiranje SQLite baze podataka
@@ -23,7 +24,7 @@ def create_db_and_tables():
     """
     SQLModel.metadata.create_all(engine)
 
-def get_session() -> Generator:
+def get_session() :
     """
     Generator funkcija koja kreira novu sesiju baze podataka.
     Koristi se kao dependency u FastAPI rutama.
