@@ -1,30 +1,27 @@
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel, Field, false
 from typing import Optional
 from datetime import datetime
 
 
-class Enrollment(SQLModel, table=True):
+class Course(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    student_name: str
-    progress_percentage: float
-    completed: bool = False
-    enrollment_date: datetime
-    course_id: int
-
-
-class EnrollmentCreate(SQLModel):
-    student_name: str
-    progress_percentage: float
-    completed: bool = False
-    enrollment_date: datetime
-    course_id: int
-
-
-class EnrollmentUpdate(SQLModel):
-    student_name: Optional[str] = None
-    progress_percentage: Optional[float] = None
-    completed: Optional[bool] = None
-    enrollment_date: Optional[datetime] = None
-    course_id: Optional[int] = None
-
-
+    title: str
+    category: str
+    duration_hours: int
+    price: float
+    start_date: datetime
+    end_date: datetime
+class CourseCreate(SQLModel):
+    title: str
+    category: str
+    duration_hours: int
+    price: float
+    start_date: datetime
+    end_date: datetime
+class CourseUpdate(SQLModel):
+    title: Optional[str] = None
+    category: Optional[str] = None
+    duration_hours: Optional[int] = None
+    price: Optional[float] = None
+    start_date: Optional[datetime] = None
+    end_date: Optional[datetime] = None

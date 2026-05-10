@@ -1,4 +1,6 @@
 from sqlmodel import SQLModel, create_engine, Session
+from typing import Generator
+
 
 # Kreiranje SQLite baze podataka
 # Datoteka baze će biti kreirana u root folderu projekta
@@ -16,13 +18,12 @@ engine = create_engine(
 
 def create_db_and_tables():
     """
-    Kreira sve tabele u bazi podataka na osnovu definisanih SQLModel klasa.
-    Ova funkcija se poziva prilikom pokretanja aplikacije (startup event).
+    Funkcija koja kreira bazu podataka i sve tablice definirane u modelima.
+    Treba je pozvati prilikom pokretanja aplikacije.
     """
     SQLModel.metadata.create_all(engine)
 
-
-def get_session():
+def get_session() -> Generator:
     """
     Generator funkcija koja kreira novu sesiju baze podataka.
     Koristi se kao dependency u FastAPI rutama.
