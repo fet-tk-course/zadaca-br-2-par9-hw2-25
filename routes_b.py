@@ -49,3 +49,13 @@ def update_enrollment(id: int, enrollment_update: EnrollmentUpdate, session: Ses
     session.commit()
     session.refresh(db_enrollment)
     return db_enrollment
+
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_enrollment(id: int, session: Session = Depends(get_session)):
+    enrollment = session.get(Enrollment, id)
+    if not enrollment:
+        raise HTTPException(status_code=404, detail="Enrollment not found")
+    
+    session.delete(enrollment)
+    session.commit()
+    return None
