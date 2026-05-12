@@ -31,3 +31,21 @@ def read_enrollment(id: int, session: Session = Depends(get_session)):
     if not enrollment:
         raise HTTPException(status_code=404, detail="Enrollment not found")
     return enrollment
+
+
+@router.patch("/{id}", response_model=Enrollment)
+def update_enrollment(id: int, enrollment_update: EnrollmentUpdate, session: Session = Depends(get_session)):
+    db_enrollment = session.get(Enrollment, id)
+    if not db_enrollment:
+        raise HTTPException(status_code=404, detail="Enrollment not found")
+    
+
+    update_data = enrollment_update.model_dump(exclude_unset=True)
+    
+    for key, value in update_data.items():
+        setattr(db_enrollment, key, value)
+    
+    session.add(db_enrollment)
+    session.commit()
+    session.refresh(db_enrollment)
+    return db_enrollment
