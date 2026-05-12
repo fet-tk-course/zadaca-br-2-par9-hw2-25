@@ -6,7 +6,22 @@
 Domen - Sistem online kurseva  
 Aplikacija sluzi za kreiranje,pregled kurseva,prijavu studenata i pracenje napretka  
 
-Sastoji se od dva entiteta : Course i Enrollment
+Sastoji se od dva entiteta : Course i Enrollment  
+
+
+Student A je zaduzen za same kurseve.  
+Student B je zaduzen za aktivnost - proces prijave i   pracenje kako student napreduje na tim kursevima.  
+
+
+Resurs A : Course
+
+Sastoji se od auto generisanog id,naziva kursa,kategorije,trajanja u satima,cijene,pocetnog i krajnjeg datuma kada je dostupan
+
+Resurs B : Enrollment
+
+Spaja studenta sa kursom i prati njegov status.
+Sadrzi id,ime studenta,email,napredak,is_completed boolean ako je student zavrsio kurs,datum i vrijeme prijave i strani kljuc na resurs Course.
+
 
 ## Tim
 
