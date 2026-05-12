@@ -3,12 +3,15 @@
 
 ## O projektu
 
-[Ovdje ukratko opišite domenu vaše aplikacije i njenu svrhu]
+Domen - Sistem online kurseva  
+Aplikacija sluzi za kreiranje,pregled kurseva,prijavu studenata i pracenje napretka  
+
+Sastoji se od dva entiteta : Course i Enrollment
 
 ## Tim
 
-- **Student A**: [Ime Prezime] - resurs: `/resursi_a`
-- **Student B**: [Ime Prezime] - resurs: `/resursi_b`
+- **Student A**: Emir Mahmutović - resurs: `/resursi_a`
+- **Student B**: Amar Ašćić - resurs: `/resursi_b`
 
 ## Instalacija i pokretanje
 
@@ -74,18 +77,24 @@ curl -X POST "http://localhost:8000/resursi_a" \
 ## Korištenje AI alata
 
 ### Alat: [GitHub Copilot / ChatGPT / ...]
-**Model:** [GPT-4, Copilot model, ...]
 
-**Primjer 1:**
-- **Prompt:** [Npr. "Kreiraj SQLModel klasu za entitet Knjiga sa poljima naslov, autor, godina, isbn"]
-- **Kako je pomoglo:** [Opis]
-- **Prilagodbe:** [Da li ste morali prilagoditi generisani kod]
+**Student A: Emir Mahmutovic**
 
-**Primjer 2:**
-- **Prompt:** [Npr. "Implementiraj PATCH endpoint sa exclude_unset=True"]
-- **Kako je pomoglo:** [Opis]
-- **Prilagodbe:** [Opis]
+**Model:** ChatGpt i Github Copilot
 
+- **Prompt:** Kreiraj klasu course sa id title category duration itd.
+- **Kako je pomoglo:** Pomoglo mi je skontati tačko kakvu klasu hoću i kakvo je hoču postaviti
+- **Prilagodbe:** U nekim slučajevima sam morao mijenjati kod koji je AI generisao
+
+
+**Student B: Amar Ascic** 
+
+**Model:** Google Gemini
+- **Prompt:** Dobijam gresku 422 Unprocessable Entity kad apokusam uraditi PATCH. Evo slike greske i mog JSON-a, sta nije u redu?
+- **Prompt:** Moj kolega je vec zavrsio svoj rad na grani Student_a. Kako da ja kreiram svoju granu Student_b tako da ona naslijedi njegov kod (jer mi trebaju njegovi modeli),ali da moji commitovi ostanu odvojeni kako ne bismo jedan drugom gazili po kodu ?
+
+**Pomoc i prilagodbe:**
+AI mi je razjasnio nedoumicu oko grananja u zajednickom repozitoriju. Koristen je kao real-time asistent i alat koji je brzo generisao CRUD operacije kako bih ustedio vrijeme pisajuci redundantan kod. Takodje, pomogao mi je u otklanjanju gresaka. Morao sam naravno prilagodjavati kod kolegi,da se odrzi konzistentnost projekta i da postavljam dodatna pitanja kako bih se naucio "npr. sta je router..." 
 ## Napomene
 
-[Dodatne napomene specifične za vašu implementaciju]
+Nikakve dodatne napomene,kod je u skladu sa zahtjevima u zadaci.
