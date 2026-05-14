@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlmodel import Session, select
+from sqlmodel import Session, select, func
 from database import get_session
 from models_b import Enrollment, EnrollmentCreate, EnrollmentUpdate
 from typing import Optional, List
@@ -24,6 +24,13 @@ def read_enrollments(student_name: Optional[str] = None, session: Session = Depe
     results = session.exec(statement).all()
     return results
 
+@router.get("/statistika")
+def get_enrollment_statistics(session: Session = Depends(get_session)):
+    
+    statement = select(func.count()).select_from(Enrollment)
+    total_enrollments = session.exec(statement).one()
+    
+    return {"total_enrollments": total_enrollments}
 
 @router.get("/{id}", response_model=Enrollment)
 def read_enrollment(id: int, session: Session = Depends(get_session)):
@@ -32,10 +39,7 @@ def read_enrollment(id: int, session: Session = Depends(get_session)):
         raise HTTPException(status_code=404, detail="Enrollment not found")
     return enrollment
 
-@router.get("/statistika")
-def get_enrollment_statistics(session: Session = Depends(get_session)):
-    total_enrollments = session.exec(select(Enrollment)).count()
-    return {"total_enrollments": total_enrollments}
+
 
 
 @router.put("/{id}", response_model=Enrollment)
