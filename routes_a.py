@@ -24,6 +24,12 @@ def read_courses(session: Session = Depends(get_session)):
     courses = session.exec(select(Course)).all()
     return courses
 
+@router.get("/statistika")
+def get_course_statistics(session: Session = Depends(get_session)):
+    average_price = session.exec(select(Course.price)).all()
+    average_price = sum(average_price) / len(average_price) if average_price else 0
+    return {"average_price": average_price}
+
 @router.get("/{id}")
 def read_course(id: int, session: Session = Depends(get_session)):
     course = session.get(Course, id)
@@ -31,11 +37,7 @@ def read_course(id: int, session: Session = Depends(get_session)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Course not found")
     return course
 
-@router.get("/statistika")
-def get_course_statistics(session: Session = Depends(get_session)):
-    average_price = session.exec(select(Course.price)).all()
-    average_price = sum(average_price) / len(average_price) if average_price else 0
-    return {"average_price": average_price}
+
 
 @router.put("/{id}")
 def update_course(id: int, course_update: CourseUpdate, session: Session = Depends(get_session)):
