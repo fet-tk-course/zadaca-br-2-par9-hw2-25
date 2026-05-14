@@ -18,6 +18,11 @@ class EnrollmentCreate(SQLModel):
     student_email: str
     progress: float
     course_id: int
+    @field_validator("progress")
+    def validate_progress(cls, progress):
+        if not (0 <= progress <= 100):
+            raise ValueError("progress must be between 0 and 100")
+        return progress
 
 class EnrollmentUpdate(SQLModel):
     student_name: Optional[str] = None
