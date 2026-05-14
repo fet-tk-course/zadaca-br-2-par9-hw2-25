@@ -6,27 +6,38 @@ from models_a import Course, CourseCreate, CourseUpdate
 
 router = APIRouter(prefix="/resursi_a", tags=["Resurs A"])
 
-@router.post("/resursi_a", response_model=Course, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=Course, status_code=status.HTTP_201_CREATED)
 def create_course(course: CourseCreate, session: Session = Depends(get_session)):
+    
+    existing_course = session.exec(select(Course).where(Course.title == course.title)).first()
+    if existing_course:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Course with this title already exists")
+    
     new_course = Course.from_orm(course)
     session.add(new_course)
     session.commit()
     session.refresh(new_course)
     return new_course
 
-@router.get("/resursi_a")
+@router.get("/")
 def read_courses(session: Session = Depends(get_session)):
     courses = session.exec(select(Course)).all()
     return courses
 
-@router.get("/resursi_a/{id}")
+@router.get("/{id}")
 def read_course(id: int, session: Session = Depends(get_session)):
     course = session.get(Course, id)
     if not course:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Course not found")
     return course
 
-@router.put("/resursi_a/{id}")
+@router.get("/statistika")
+def get_course_statistics(session: Session = Depends(get_session)):
+    average_price = session.exec(select(Course.price)).all()
+    average_price = sum(average_price) / len(average_price) if average_price else 0
+    return {"average_price": average_price}
+
+@router.put("/{id}")
 def update_course(id: int, course_update: CourseUpdate, session: Session = Depends(get_session)):
     course = session.get(Course, id)
     if not course:
@@ -41,7 +52,7 @@ def update_course(id: int, course_update: CourseUpdate, session: Session = Depen
     session.refresh(course)
     return course
 
-@router.patch("/resursi_a/{id}")
+@router.patch("/{id}")
 def partial_update_course(id: int, course_update: CourseUpdate, session: Session = Depends  (get_session)):
     course = session.get(Course, id)
     if not course:
@@ -56,7 +67,7 @@ def partial_update_course(id: int, course_update: CourseUpdate, session: Session
     session.refresh(course)
     return course
 
-@router.delete("/resursi_a/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_course(id: int, session: Session = Depends(get_session)):    
     course = session.get(Course, id)
     if not course:

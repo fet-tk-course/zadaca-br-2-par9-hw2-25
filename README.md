@@ -113,3 +113,16 @@ AI mi je razjasnio nedoumicu oko grananja u zajednickom repozitoriju. Koristen j
 ## Napomene
 
 Nikakve dodatne napomene,kod je u skladu sa zahtjevima u zadaci.
+
+## Zadatak na lab-u overview
+
+Dodana stroza kontrola unosa podataka pomocu field_validator metoda:
+-Vremenski okvir end_date mora biti nakon start_date
+-Polje progress mora biti unutar raspona od 0 do 100
+Ako nije ispunjen zahtjev,vraca se ValueError
+
+Novi Endpoint-ovi
+URL /statistika metod GET
+Opis: Izracunava prosjecnu cijenu kurseva
+Ispisuje ukupan broj upisanih studenata
+U slucaju praznog .db ispisuje se 0 . 

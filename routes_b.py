@@ -32,6 +32,11 @@ def read_enrollment(id: int, session: Session = Depends(get_session)):
         raise HTTPException(status_code=404, detail="Enrollment not found")
     return enrollment
 
+@router.get("/statistika")
+def get_enrollment_statistics(session: Session = Depends(get_session)):
+    total_enrollments = session.exec(select(Enrollment)).count()
+    return {"total_enrollments": total_enrollments}
+
 
 @router.put("/{id}", response_model=Enrollment)
 def replace_enrollment(id: int, enrollment_update: EnrollmentCreate, session: Session = Depends(get_session)):
