@@ -23,6 +23,11 @@ class EnrollmentCreate(SQLModel):
         if not (0 <= progress <= 100):
             raise ValueError("progress must be between 0 and 100")
         return progress
+    @field_validator("student_name")
+    def validate_student_name(cls, student_name):
+        if len(student_name) == 0:
+            raise ValueError("student_name cannot be empty")
+        return student_name
 
 class EnrollmentUpdate(SQLModel):
     student_name: Optional[str] = None

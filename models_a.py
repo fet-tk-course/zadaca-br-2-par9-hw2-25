@@ -24,6 +24,11 @@ class CourseCreate(SQLModel):
         if start_date and end_date <= start_date:
             raise ValueError("end_date must be after start_date")
         return end_date
+    @field_validator("duration_hours")
+    def validate_duration(cls, duration_houres):
+        if duration_hours <= 0:
+            raise ValueError("duration_hours must be a positive integer")
+        return duration_hours
 
 class CourseUpdate(SQLModel):
     title: Optional[str] = None

@@ -1,6 +1,7 @@
 from sqlmodel import SQLModel, create_engine, Session
 from typing import Generator
 from models_a import Course
+from models_b import Enrollment
 
 
 # Kreiranje SQLite baze podataka

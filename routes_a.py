@@ -13,11 +13,20 @@ def create_course(course: CourseCreate, session: Session = Depends(get_session))
     if existing_course:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Course with this title already exists")
     
+    existing_course1 = session.exec(select(Course).where(Course.price > 1000)).first() 
+    if existing_course1:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Course with price greater than 1000 is not allowed")
+    
     new_course = Course.from_orm(course)
     session.add(new_course)
     session.commit()
     session.refresh(new_course)
     return new_course
+
+@router.post("/search", response_model=Course)
+def search_courses(title: str, session: Session = Depends(get_session)):
+    courses = session.exec(select(Course).where(Course.title == title)).all()
+    return courses
 
 @router.get("/")
 def read_courses(session: Session = Depends(get_session)):

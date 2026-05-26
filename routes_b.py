@@ -10,10 +10,20 @@ router = APIRouter(prefix="/resursi_b", tags=["Resurs B"])
 @router.post("/", response_model=Enrollment, status_code=status.HTTP_201_CREATED)
 def create_enrollment(enrollment: EnrollmentCreate, session: Session = Depends(get_session)):
     db_enrollment = Enrollment.model_validate(enrollment)
+    
+    existing_enrollment_email = session.exec(select(Enrollment).where(Enrollment.student_email == enrollment.student_email)).first()
+    
+    if existing_enrollment_email:
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="A user with this email already exists")
     session.add(db_enrollment)
     session.commit()
     session.refresh(db_enrollment)
     return db_enrollment
+
+@router.post("/search", response_model=Enrollment)
+def search_enrollments(student_email: str, session: Session = Depends(get_session)):
+    enrollments = session.exec(select(Enrollment).where(Enrollment.student_email == student_email)).all()
+    return enrollments
 
 @router.get("/", response_model=List[Enrollment])
 def read_enrollments(student_name: Optional[str] = None, session: Session = Depends(get_session)):
