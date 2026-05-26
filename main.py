@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-
+from routes_a import router as router_a
+from routes_b import router as router_b
 from database import create_db_and_tables
-
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -15,6 +15,10 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan
 )
+
+
+app.include_router(router_a)
+app.include_router(router_b)
 
 
 @app.get("/")
