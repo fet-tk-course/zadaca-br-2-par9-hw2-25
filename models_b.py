@@ -25,7 +25,7 @@ class EnrollmentCreate(SQLModel):
         return progress
     @field_validator("student_name")
     def validate_student_name(cls, student_name):
-        if len(student_name) == 0:
+        if len(student_name) <= 1:
             raise ValueError("student_name cannot be empty")
         return student_name
 

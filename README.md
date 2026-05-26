@@ -126,3 +126,15 @@ URL /statistika metod GET
 Opis: Izracunava prosjecnu cijenu kurseva
 Ispisuje ukupan broj upisanih studenata
 U slucaju praznog .db ispisuje se 0 . 
+
+Dodani field_validatori metodi za:
+duration_hours da ne mogu biti 0 ili negativan broj. Poruka "duration_hours must be a positive number"
+student_name da duzina imena ne moze imat 1 ili manje karaktera. Poruka "student_name cannot be empty"
+
+U POST Endpoint-e su dodani HTTPException:
+U Course da cijena ne smije biti vise od 1000
+U Enrollment je dodano da ne smije biti student sa istim email-om koji vec postoji u bazi
+
+Novi POST Endpoint-i:
+URL /search 
+Ovi Endpoint pretrazuju bazu za Course pod oderdenom imenu i Enrollment pod odredenom email-u

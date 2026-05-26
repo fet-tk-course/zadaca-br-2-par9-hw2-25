@@ -27,7 +27,7 @@ class CourseCreate(SQLModel):
     @field_validator("duration_hours")
     def validate_duration(cls, duration_houres):
         if duration_hours <= 0:
-            raise ValueError("duration_hours must be a positive integer")
+            raise ValueError("duration_hours must be a positive number")
         return duration_hours
 
 class CourseUpdate(SQLModel):
